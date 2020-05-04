@@ -16,7 +16,7 @@ def assert_even(value):
     even = value % 2 == 0
 
     if not even:
-        raise Exception("Invalid contents.")
+        raise ValueError("Bad number of lines.")
 
     return True
 
@@ -24,8 +24,13 @@ def assert_even(value):
 def parse_grid_definition(line):
 
     string_list = line.split(" ")
-    grid_limits = [int(value) for value in string_list]
-    return tuple(grid_limits)
+
+    if len(string_list) != 2:
+        raise ValueError("Bad grid definition.")
+
+    grid = [int(value) for value in string_list]
+
+    return grid[0], grid[1]
 
 
 def parse_rover_start(line, grid_x, grid_y):
@@ -50,7 +55,8 @@ def parse_rover_start(line, grid_x, grid_y):
 def parse_rover_command(line):
 
     pattern = re.compile("[LRM]*")  # any sequence of L, R and M
-    if not pattern.match(line):
+    other = re.sub(pattern, "", line)
+    if len(other) > 0:
         raise ValueError("Bad rover command.")
 
     return list(line)
