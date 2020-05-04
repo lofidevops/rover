@@ -70,7 +70,8 @@ def simulate(grid_x, grid_y, start_x, start_y, start_orientation, rover_command)
 @click.command()
 @click.argument("filename", type=click.File("rb"))
 @click.argument("output", type=click.File("wb"))
-def cli(filename, output):
+@click.option("--verbose", is_flag=True)
+def cli(filename, output, verbose):
     """Parse CLI input."""
 
     try:
@@ -78,6 +79,7 @@ def cli(filename, output):
 
         grid_x, grid_y = parse_grid_definition(content.pop(0))
         sim = Simulation(grid_x, grid_y)
+        sim.verbose = verbose
 
         assert_even(len(content))
         rover_count = len(content) // 2
