@@ -69,7 +69,11 @@ def parse_rover_command(line):
 @click.command()
 @click.argument("filename", type=click.File("rb"))
 @click.argument("output", type=click.File("w"))
-@click.option("--verbose", is_flag=True, help="Show the rover state at every step of the simulation.")
+@click.option(
+    "--verbose",
+    is_flag=True,
+    help="Show the rover state at every step of the simulation.",
+)
 def cli(filename, output, verbose):
     """Run a rover simulation. Parse input and generate output in specified location."""
 
