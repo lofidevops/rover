@@ -87,3 +87,40 @@ def test_move(start_x, start_y, start_orientation, new_x, new_y):
     s.move()
     assert s.curr_x == new_x
     assert s.curr_y == new_y
+
+
+def test_start_at_obstacle_fails_silently():
+
+    s = Simulation(2, 2)
+    s.obstacles.add((1, 1))
+    s.set_rover_start(1, 1, "N")
+    s.simulate(["R"])
+
+    assert s.curr_x == -1
+    assert s.curr_y == -1
+    assert s.curr_o == "O"
+
+
+def test_final_position_is_obstacle():
+
+    s = Simulation(2, 2)
+    s.set_rover_start(1, 1, "N")
+    s.simulate(["M"])
+
+    assert (1, 2) in s.obstacles
+
+
+def test_second_rover_at_final_position_fails_silently():
+
+    s = Simulation(2, 2)
+    s.set_rover_start(1, 1, "N")
+    s.simulate(["M"])
+
+    assert (1, 2) in s.obstacles
+
+    s.set_rover_start(1, 2, "N")
+    s.simulate(["R"])
+
+    assert s.curr_x == -1
+    assert s.curr_y == -1
+    assert s.curr_o == "O"

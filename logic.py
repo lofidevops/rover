@@ -14,6 +14,7 @@ class Simulation:
         self.curr_y = None
         self.curr_o = None
         self.verbose = False
+        self.obstacles = set()
 
     def set_rover_start(self, start_x, start_y, start_orientation):
         """Set the intended start position of the rover. The current rover position is undefined."""
@@ -31,6 +32,7 @@ class Simulation:
         self.curr_x = self.start_x
         self.curr_y = self.start_y
         self.curr_o = self.start_o
+
 
     def rotate(self, direction):
         """Rotate 90 degrees in given direction."""
@@ -61,11 +63,25 @@ class Simulation:
     def simulate(self, rover_command):
         """Follow the given commands to simulate rover movement."""
 
+        # initialise
         self._set_rover_current_to_start()
 
         if self.verbose:
             self.print_state("-")
 
+        # skip simulation if start position is already an obstacle
+        start = (self.start_x, self.start_y)
+        if start in self.obstacles:
+            self.curr_x = -1
+            self.curr_y = -1
+            self.curr_o = "O"
+
+            if self.verbose:
+                self.print_state("-")
+
+            return
+
+        # otherwise process instructions
         for instruction in rover_command:
             if instruction == "L":
                 self.rotate("left")
@@ -78,3 +94,5 @@ class Simulation:
 
             if self.verbose:
                 self.print_state(instruction)
+
+        self.obstacles.add((self.curr_x, self.curr_y))  # append final position as a new obstacle
