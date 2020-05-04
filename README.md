@@ -28,6 +28,12 @@ This will parse `input.txt` and write the results to STDOUT. Replace
 
 A sample input file is included with the source.
 
+## Testing
+
+```
+pipenv run pytest
+```
+
 ## Sharing and contributions
 
 Rover  
