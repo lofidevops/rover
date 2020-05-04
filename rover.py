@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import click
-import logic
+from logic import Simulation
 import re
 
 
@@ -77,16 +77,20 @@ def cli(filename, output):
         content = [line_to_string(line) for line in filename]
 
         grid_x, grid_y = parse_grid_definition(content.pop(0))
+        sim = Simulation(grid_x, grid_y)
 
         assert_even(len(content))
         rover_count = len(content) // 2
 
         for roverid in range(rover_count):
+
             start_x, start_y, start_orientation = parse_rover_start(
                 content.pop(0), grid_x, grid_y
             )
+            sim.set_rover_start(start_x, start_y, start_orientation)
+
             rover_command = parse_rover_command(content.pop(0))
-            simulate(grid_x, grid_y, start_x, start_y, start_orientation, rover_command)
+            sim.simulate(rover_command)
 
     except Exception as e:
         print("There was a problem reading the rover file. %s" % e)
