@@ -2,8 +2,8 @@ class Simulation:
     """Stores environment values, initial values and executes rover instructions."""
 
     def __init__(self, grid_x, grid_y):
-        """Set the maximum coordinates of the quadrant. The intended start position and current rover position are
-        undefined."""
+        """Set the maximum coordinates of the quadrant. The intended start position and current rover position
+        are undefined."""
 
         self.max_x = grid_x
         self.max_y = grid_y
@@ -32,7 +32,6 @@ class Simulation:
         self.curr_x = self.start_x
         self.curr_y = self.start_y
         self.curr_o = self.start_o
-
 
     def rotate(self, direction):
         """Rotate 90 degrees in given direction."""
@@ -95,4 +94,6 @@ class Simulation:
             if self.verbose:
                 self.print_state(instruction)
 
-        self.obstacles.add((self.curr_x, self.curr_y))  # append final position as a new obstacle
+        self.obstacles.add(
+            (self.curr_x, self.curr_y)
+        )  # append final position as a new obstacle

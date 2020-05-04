@@ -8,7 +8,7 @@ import re
 def line_to_string(line):
     """Convert line from a file into a usable Python string."""
 
-    return line.strip().decode("utf-8").upper()
+    return line.strip().upper()
 
 
 def assert_even(value):
@@ -67,7 +67,7 @@ def parse_rover_command(line):
 
 
 @click.command()
-@click.argument("filename", type=click.File("rb"))
+@click.argument("filename", type=click.File("r"))
 @click.argument("output", type=click.File("w"))
 @click.option(
     "--verbose",

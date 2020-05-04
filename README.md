@@ -9,7 +9,7 @@ Just another Mars rover CLI.
 
 2. Get source:
 
-        git clone https://example.com/rover.git
+        git clone https://github.com/david-libremone/rover.git
 
 3. Install with pipenv:
 
@@ -115,7 +115,7 @@ pipenv run pytest
 ## Sharing and contributions
 
 Rover  
-<https://example.com>  
+<https://github.com/david-libremone/rover>  
 Copyright 2020 David Seaward  
 SPDX-License-Identifier: GPL-3.0-or-later  
 

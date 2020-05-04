@@ -3,11 +3,11 @@ import rover
 
 
 @pytest.mark.parametrize(
-    "bytestring,plainstring", [(b"TEST", "TEST"), (b"Test", "TEST")]
+    "sample,expected", [("TEST", "TEST"), ("TEST ", "TEST"), ("Test", "TEST")]
 )
-def test_line_to_string(bytestring, plainstring):
+def test_line_to_string(sample, expected):
 
-    assert rover.line_to_string(bytestring) == plainstring
+    assert rover.line_to_string(sample) == expected
 
 
 def test_true_for_even_value():
