@@ -68,30 +68,43 @@ def parse_rover_command(line):
 
 @click.command()
 @click.argument("filename", type=click.File("rb"))
-@click.argument("output", type=click.File("wb"))
+@click.argument("output", type=click.File("w"))
 @click.option("--verbose", is_flag=True, help="Show the rover state at every step of the simulation.")
 def cli(filename, output, verbose):
     """Run a rover simulation. Parse input and generate output in specified location."""
 
     try:
+        # initialise input and output variables
         content = [line_to_string(line) for line in filename]
+        results = []
 
+        # initialise simulation with grid limits
         grid_x, grid_y = parse_grid_definition(content.pop(0))
         sim = Simulation(grid_x, grid_y)
         sim.verbose = verbose
 
+        # validate remaining content
         assert_even(len(content))
         rover_count = len(content) // 2
 
         for roverid in range(rover_count):
 
+            # initialise values for current rover
             start_x, start_y, start_orientation = parse_rover_start(
                 content.pop(0), grid_x, grid_y
             )
             sim.set_rover_start(start_x, start_y, start_orientation)
 
+            # execute instructions for current rover
             rover_command = parse_rover_command(content.pop(0))
             sim.simulate(rover_command)
+
+            # store results
+            results.append("%s %s %s" % (sim.curr_x, sim.curr_y, sim.curr_o))
+
+        # write results for all rovers
+        output_string = "\n".join(results) + "\n"
+        output.write(output_string)
 
     except Exception as e:
         print("There was a problem reading the rover file. %s" % e)

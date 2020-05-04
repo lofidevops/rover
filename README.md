@@ -19,20 +19,51 @@ Just another Mars rover CLI.
 ## Usage
 
 ```
+pipenv run rover input.txt output.txt
+```
+
+This will parse `input.txt` and write the final rover positions to `output.txt`.
+
+```
 pipenv run rover input.txt -
 ```
 
-This will parse `input.txt` and write the results to STDOUT. Replace
-`-` with a filename to write to an output file. Run
-```pipenv run rover --help``` for additional details.
+Write to STDOUT rather than a file.
 
 ```
 pipenv run rover input.txt - --verbose
 ```
 
-Performs the same simulation, but prints the rover state at each step of the simulation.
+Performs the same simulation, but prints the rover state at each step along the way.
 
-A sample input file is included with the source.
+A sample input file is included with the source, it should work as follows:
+
+```
+$ pipenv run rover sample.txt - --verbose
+-: 1 2 N
+L: 1 2 W
+M: 0 2 W
+L: 0 2 S
+M: 0 1 S
+L: 0 1 E
+M: 1 1 E
+L: 1 1 N
+M: 1 2 N
+M: 1 3 N
+-: 3 3 E
+M: 4 3 E
+M: 5 3 E
+R: 5 3 S
+M: 5 2 S
+M: 5 1 S
+R: 5 1 W
+M: 4 1 W
+R: 4 1 N
+R: 4 1 E
+M: 5 1 E
+1 3 N
+5 1 E
+```
 
 ### Input format
 
