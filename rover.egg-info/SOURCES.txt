@@ -1,0 +1,9 @@
+README.md
+setup.cfg
+setup.py
+rover.egg-info/PKG-INFO
+rover.egg-info/SOURCES.txt
+rover.egg-info/dependency_links.txt
+rover.egg-info/entry_points.txt
+rover.egg-info/requires.txt
+rover.egg-info/top_level.txt
