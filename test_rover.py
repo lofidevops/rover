@@ -90,5 +90,4 @@ def test_parse_rover_command(line, output_list):
 def test_parse_rover_command_value_errors(line):
 
     with pytest.raises(ValueError):
-        print(line)
-        print(rover.parse_rover_command(line))
+        rover.parse_rover_command(line)

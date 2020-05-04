@@ -7,6 +7,7 @@ import re
 
 def line_to_string(line):
     """Convert line from a file into a usable Python string."""
+
     return line.strip().decode("utf-8").upper()
 
 
@@ -22,6 +23,7 @@ def assert_even(value):
 
 
 def parse_grid_definition(line):
+    """Parse string `GX GY` and return grid limits."""
 
     string_list = line.split(" ")
 
@@ -34,6 +36,7 @@ def parse_grid_definition(line):
 
 
 def parse_rover_start(line, grid_x, grid_y):
+    """Parse string `RX RY RO` and return start position and orientation of rover."""
 
     string_list = line.split(" ")
 
@@ -53,6 +56,7 @@ def parse_rover_start(line, grid_x, grid_y):
 
 
 def parse_rover_command(line):
+    """Parse string `III...` and return list of rover commands."""
 
     pattern = re.compile("[LRM]*")  # any sequence of L, R and M
     other = re.sub(pattern, "", line)
@@ -62,17 +66,12 @@ def parse_rover_command(line):
     return list(line)
 
 
-def simulate(grid_x, grid_y, start_x, start_y, start_orientation, rover_command):
-
-    print(grid_x, grid_y, start_x, start_y, start_orientation, rover_command)
-
-
 @click.command()
 @click.argument("filename", type=click.File("rb"))
 @click.argument("output", type=click.File("wb"))
-@click.option("--verbose", is_flag=True)
+@click.option("--verbose", is_flag=True, help="Show the rover state at every step of the simulation.")
 def cli(filename, output, verbose):
-    """Parse CLI input."""
+    """Run a rover simulation. Parse input and generate output in specified location."""
 
     try:
         content = [line_to_string(line) for line in filename]

@@ -26,6 +26,12 @@ This will parse `input.txt` and write the results to STDOUT. Replace
 `-` with a filename to write to an output file. Run
 ```pipenv run rover --help``` for additional details.
 
+```
+pipenv run rover input.txt - --verbose
+```
+
+Performs the same simulation, but prints the rover state at each step of the simulation.
+
 A sample input file is included with the source.
 
 ### Input format
@@ -66,7 +72,8 @@ RX RY RO
 
 * RX, RY, RO: The final position of each rover
 
-If a rover attempts to start on top of another rover, its final position will be `-1 -1 O`
+If a rover attempts to start on top of another rover, its final position will
+be `-1 -1 O`
 
 ## Testing
 
